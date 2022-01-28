@@ -7,6 +7,7 @@ import striptags from "striptags";
 const NewBlogPost = () => {
   const [title, setTitle] = useState("");
   const [cover, setCover] = useState(null);
+  const [avatar, setAvatar] = useState(null);
   const [authorName, setAuthorName] = useState("");
   const [authorSurname, setAuthorSurname] = useState("");
   const [category, setCategory] = useState("Action");
@@ -19,8 +20,9 @@ const NewBlogPost = () => {
       title,
       cover,
       author: {
-        firstName: authorName,
-        lastName: authorSurname,
+        name: authorName,
+        surname: authorSurname,
+        avatar,
       },
       readTime: {
         value: "2",
@@ -71,7 +73,7 @@ const NewBlogPost = () => {
 
         <div className="d-flex justify-content-between">
           <Form.Group
-            style={{ width: "47%" }}
+            style={{ width: "30%" }}
             controlId="blog-form"
             className="mt-3"
           >
@@ -84,7 +86,7 @@ const NewBlogPost = () => {
             />
           </Form.Group>
           <Form.Group
-            style={{ width: "47%" }}
+            style={{ width: "30%" }}
             controlId="blog-form"
             className="mt-3"
           >
@@ -94,6 +96,20 @@ const NewBlogPost = () => {
               placeholder="Author Surname"
               value={authorSurname}
               onChange={e => setAuthorSurname(e.target.value)}
+            />
+          </Form.Group>
+
+          <Form.Group
+            style={{ width: "30%" }}
+            controlId="blog-form"
+            className="mt-3"
+          >
+            <Form.Label>Author Avatar</Form.Label>
+            <Form.Control
+              size="lg"
+              placeholder="Image link"
+              value={avatar}
+              onChange={e => setAvatar(e.target.value)}
             />
           </Form.Group>
         </div>
