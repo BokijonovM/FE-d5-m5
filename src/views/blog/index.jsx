@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Image } from "react-bootstrap";
+import { Container, Image, Button } from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 import BlogLike from "../../components/likes/BlogLike";
@@ -13,6 +13,7 @@ class Blog extends Component {
   };
   componentDidMount() {
     this.fetchDataBlog();
+    this.fetchPdfData();
     // console.log(posts)
     // const blog = posts.find((post) => post._id.toString() === id)
     // if (blog) {
@@ -25,13 +26,14 @@ class Blog extends Component {
   fetchDataBlog = async () => {
     try {
       const { id } = this.props.match.params;
+      console.log("ID", id);
       const response = await fetch(`http://localhost:3001/posts`);
       if (response.ok) {
         const blogData = await response.json();
         console.log("Hell0");
         console.log(blogData);
         const blog = blogData.find(
-          singleBlog => singleBlog._id.toString() == id
+          singleBlog => singleBlog._id.toString() === id
         );
 
         if (blog) {
@@ -40,7 +42,25 @@ class Blog extends Component {
           this.props.history.push("/404");
         }
       }
-    } catch (error) {}
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
+  fetchPdfData = async () => {
+    try {
+      const { id } = this.props.match.params;
+      const res = await fetch(`http://localhost:3001/posts/download/${id}`);
+      if (res.ok) {
+        const pdfData = res.json();
+        console.log(pdfData);
+        console.log("PDF DATA");
+      } else {
+        console.log("Fetching PDF data error!");
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   render() {
@@ -67,6 +87,9 @@ class Blog extends Component {
                 <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
                 <div style={{ marginTop: 20 }}>
                   <BlogLike defaultLikes={["123"]} onChange={console.log} />
+                  <Button className="w-100 mt-2 shadow-none" variant="info">
+                    Get PDF
+                  </Button>
                 </div>
               </div>
             </div>
