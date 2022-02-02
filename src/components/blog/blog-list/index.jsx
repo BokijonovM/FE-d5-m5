@@ -7,7 +7,7 @@ const BlogList = () => {
   useEffect(() => {
     const fetchLocalHost = async () => {
       try {
-        let res = await fetch("http://localhost:3001/posts");
+        let res = await fetch(process.env.REACT_APP_LOCALHOST_3001 + "posts");
         console.log("Data fetched");
         if (res.ok) {
           let data = await res.json();

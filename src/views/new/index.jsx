@@ -38,13 +38,16 @@ const NewBlogPost = () => {
       content: striptags(content),
     };
     try {
-      const response = await fetch(`http://localhost:3001/posts`, {
-        method: "POST",
-        body: JSON.stringify(newPost),
-        headers: {
-          "Content-Type": "application/json",
-        },
-      });
+      const response = await fetch(
+        process.env.REACT_APP_LOCALHOST_3001 + `posts`,
+        {
+          method: "POST",
+          body: JSON.stringify(newPost),
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
       if (response.ok) {
         const data = await response.json();
       } else {
@@ -65,7 +68,7 @@ const NewBlogPost = () => {
 
     try {
       let response = await fetch(
-        `http://localhost:3001/files/rkowrhz0kyy2g0o1/cover`,
+        process.env.REACT_APP_LOCALHOST_3001 + `files/rkowrhz0kyy2g0o1/cover`,
         {
           method: "POST",
           body: formData,

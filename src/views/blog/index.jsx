@@ -13,7 +13,6 @@ class Blog extends Component {
   };
   componentDidMount() {
     this.fetchDataBlog();
-    this.fetchPdfData();
     // console.log(posts)
     // const blog = posts.find((post) => post._id.toString() === id)
     // if (blog) {
@@ -27,7 +26,9 @@ class Blog extends Component {
     try {
       const { id } = this.props.match.params;
       console.log("ID", id);
-      const response = await fetch(`http://localhost:3001/posts`);
+      const response = await fetch(
+        process.env.REACT_APP_LOCALHOST_3001 + `posts`
+      );
       if (response.ok) {
         const blogData = await response.json();
         console.log("Hell0");
@@ -47,17 +48,15 @@ class Blog extends Component {
     }
   };
 
-  fetchPdfData = async () => {
+  downloadPost = e => {
     try {
-      const { id } = this.props.match.params;
-      const res = await fetch(`http://localhost:3001/posts/download/${id}`);
-      if (res.ok) {
-        const pdfData = res.json();
-        console.log(pdfData);
-        console.log("PDF DATA");
-      } else {
-        console.log("Fetching PDF data error!");
-      }
+      // const request= fetch(process.env.REACT_APP_PROD_API_URL + 'blogPost/' + this.props.match.params.id)
+      // console.log(request)
+      window.location.replace(
+        process.env.REACT_APP_LOCALHOST_3001 +
+          "posts/download/" +
+          this.props.match.params.id
+      );
     } catch (error) {
       console.log(error);
     }
@@ -87,7 +86,11 @@ class Blog extends Component {
                 <div>{`${blog.readTime.value} ${blog.readTime.unit} read`}</div>
                 <div style={{ marginTop: 20 }}>
                   <BlogLike defaultLikes={["123"]} onChange={console.log} />
-                  <Button className="w-100 mt-2 shadow-none" variant="info">
+                  <Button
+                    onClick={e => this.downloadPost(e)}
+                    className="w-100 mt-2 shadow-none"
+                    variant="info"
+                  >
                     Get PDF
                   </Button>
                 </div>
