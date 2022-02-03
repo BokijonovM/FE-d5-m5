@@ -58,36 +58,6 @@ const NewBlogPost = () => {
     }
   };
 
-  const handleUpload = async e => {
-    e.preventDefault();
-    const formData = new FormData();
-    closeAddPost();
-    formData.append("profile", selectedFile);
-
-    console.log(formData);
-
-    try {
-      let response = await fetch(
-        process.env.REACT_APP_LOCALHOST_3001 + `files/rkowrhz0kyy2g0o1/cover`,
-        {
-          method: "POST",
-          body: formData,
-        }
-      );
-      if (response.ok) {
-        let data = await response.json();
-        console.log("Successfully uploaded", data);
-      } else {
-        console.log("error on uploading");
-      }
-    } catch (error) {
-      console.log(error);
-    }
-  };
-  const handleChange = e => {
-    setSelectedFile(e.target.files[0]);
-  };
-
   return (
     <Container className="new-blog-container">
       <Form className="mt-5" onSubmit={handleSubmit}>
@@ -103,7 +73,7 @@ const NewBlogPost = () => {
 
         <div className="d-flex align-items-end">
           <Form.Group
-            style={{ width: "80%" }}
+            style={{ width: "100%" }}
             controlId="blog-form"
             className="mt-3"
           >
@@ -115,62 +85,6 @@ const NewBlogPost = () => {
               onChange={e => setCover(e.target.value)}
             />
           </Form.Group>
-
-          <Button
-            className=""
-            style={{ marginLeft: "1em", width: "18%", height: "100%" }}
-            variant="info"
-            value={cover}
-            onClick={showAddPost}
-          >
-            Upload Image
-          </Button>
-          <Modal show={addPost} onHide={closeAddPost}>
-            <Modal.Dialog className="w-100 border-0 px-3">
-              <Modal.Header closeButton>
-                <Modal.Title>Upload Cover Image</Modal.Title>
-              </Modal.Header>
-
-              <Modal.Body>
-                <div className="d-flex justify-content-between  align-items-center">
-                  <div
-                    style={{
-                      width: "100px",
-                      height: "100px",
-                      marginBottom: "20px",
-                    }}
-                  >
-                    <img
-                      className="w-100 "
-                      src={selectedFile}
-                      alt="change profile pic"
-                    />
-                    <input
-                      type="file"
-                      id="photo"
-                      // onChange={e => handleChange(e)}
-                      value={cover}
-                      onChange={e => setCover(e.target.value)}
-                    />
-                    {selectedFile && (
-                      <>
-                        <p>{selectedFile.name}</p>
-                        <p className="mb-5">{selectedFile.type}</p>{" "}
-                      </>
-                    )}
-                  </div>
-                  <button
-                    className="bg-success text-white pointer round-border grey-border p-2 h-100"
-                    onClick={e => handleUpload(e)}
-                    value={cover}
-                    onChange={e => setCover(e.target.value)}
-                  >
-                    upload
-                  </button>
-                </div>
-              </Modal.Body>
-            </Modal.Dialog>
-          </Modal>
         </div>
 
         <div className="author-info-div">
