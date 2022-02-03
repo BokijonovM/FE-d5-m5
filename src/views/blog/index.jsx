@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Container, Image, Button } from "react-bootstrap";
+import { Container, Image, Button, Modal, Form } from "react-bootstrap";
 import { withRouter } from "react-router";
 import BlogAuthor from "../../components/blog/blog-author";
 import BlogLike from "../../components/likes/BlogLike";
@@ -10,7 +10,18 @@ class Blog extends Component {
   state = {
     blog: {},
     loading: true,
+    show: false,
   };
+
+  // constructor() {
+  //   super();
+  //   this.state = {
+  //     show: false,
+  //   };
+  // }
+  handleModal() {
+    this.setState({ show: !this.state.show });
+  }
   componentDidMount() {
     this.fetchDataBlog();
     // console.log(posts)
@@ -101,6 +112,52 @@ class Blog extends Component {
               className="mt-5"
               dangerouslySetInnerHTML={{ __html: blog.content }}
             ></div>
+            <div className="d-flex justify-content-end">
+              <Button
+                // onClick={e => this.downloadPost(e)}
+                onClick={() => {
+                  this.handleModal();
+                }}
+                className="mt-2 shadow-none d-flex justify-content-end"
+                variant="secondary"
+              >
+                Send Email as PDF
+              </Button>
+              <Modal
+                style={{
+                  backgroundColor: "rgba(255,255,255,0.1)",
+                  backdropFilter: "blur(5px)",
+                }}
+                show={this.state.show}
+              >
+                <Modal.Dialog className="w-100 px-2">
+                  <Modal.Header>
+                    <Modal.Title>Send Email</Modal.Title>
+                  </Modal.Header>
+
+                  <Modal.Body>
+                    <Form>
+                      <Form.Group controlId="blog-form" className="mt-3">
+                        <Form.Label>Email Address</Form.Label>
+                        <Form.Control size="lg" placeholder="Recipient Email" />
+                      </Form.Group>
+                    </Form>
+                  </Modal.Body>
+
+                  <Modal.Footer>
+                    <Button
+                      onClick={() => {
+                        this.handleModal();
+                      }}
+                      variant="secondary"
+                    >
+                      Close
+                    </Button>
+                    <Button variant="primary">Save changes</Button>
+                  </Modal.Footer>
+                </Modal.Dialog>
+              </Modal>
+            </div>
           </Container>
         </div>
       );
