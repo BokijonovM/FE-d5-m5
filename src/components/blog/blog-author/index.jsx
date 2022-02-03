@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 import { Row, Col, Image } from "react-bootstrap";
 import "./styles.css";
 const BlogAuthor = ({ posts }) => {

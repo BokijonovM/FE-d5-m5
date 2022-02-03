@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "react-quill/dist/quill.snow.css";
 import ReactQuill from "react-quill";
-import { Container, Form, Button, Modal } from "react-bootstrap";
+import { Container, Form, Button } from "react-bootstrap";
 import "./styles.css";
 import striptags from "striptags";
 const NewBlogPost = () => {
@@ -12,13 +12,6 @@ const NewBlogPost = () => {
   const [authorSurname, setAuthorSurname] = useState("");
   const [category, setCategory] = useState("Action");
   const [content, setContent] = useState("");
-
-  const [addPost, setAddPost] = useState(false);
-
-  const showAddPost = () => setAddPost(true);
-  const closeAddPost = () => setAddPost(false);
-
-  const [selectedFile, setSelectedFile] = useState(null);
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -50,6 +43,7 @@ const NewBlogPost = () => {
       );
       if (response.ok) {
         const data = await response.json();
+        console.log("DATA", data);
       } else {
         console.error("POST failed");
       }

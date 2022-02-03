@@ -61,8 +61,6 @@ class Blog extends Component {
 
   downloadPost = e => {
     try {
-      // const request= fetch(process.env.REACT_APP_PROD_API_URL + 'blogPost/' + this.props.match.params.id)
-      // console.log(request)
       window.location.replace(
         process.env.REACT_APP_LOCALHOST_3001 +
           "posts/download/" +
@@ -130,7 +128,7 @@ class Blog extends Component {
                 }}
                 show={this.state.show}
               >
-                <Modal.Dialog className="w-100 px-2">
+                <Modal.Dialog className="w-100 px-3">
                   <Modal.Header>
                     <Modal.Title>Send Email</Modal.Title>
                   </Modal.Header>
@@ -144,7 +142,7 @@ class Blog extends Component {
                     </Form>
                   </Modal.Body>
 
-                  <Modal.Footer>
+                  <Modal.Footer className="d-flex justify-content-between">
                     <Button
                       onClick={() => {
                         this.handleModal();
@@ -153,7 +151,7 @@ class Blog extends Component {
                     >
                       Close
                     </Button>
-                    <Button variant="primary">Save changes</Button>
+                    <Button variant="primary">Send</Button>
                   </Modal.Footer>
                 </Modal.Dialog>
               </Modal>
