@@ -8,15 +8,17 @@
   height: 400px;
   margin-bottom: 80px;
 }
-.author-info-div {
+.author-info-div,
+.author-info-div-1 {
   display: flex;
   justify-content: space-between;
 }
 .author-form-group {
-  width: 30% !important;
+  width: 48% !important;
 }
 @media (max-width: 760px) {
-  .author-info-div {
+  .author-info-div,
+  .author-info-div-1 {
     flex-direction: column;
   }
   .author-form-group {

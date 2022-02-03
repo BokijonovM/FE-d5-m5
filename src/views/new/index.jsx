@@ -12,6 +12,7 @@ const NewBlogPost = () => {
   const [authorSurname, setAuthorSurname] = useState("");
   const [category, setCategory] = useState("Action");
   const [content, setContent] = useState("");
+  const [email, setEmail] = useState("");
 
   const handleSubmit = async e => {
     e.preventDefault();
@@ -23,6 +24,7 @@ const NewBlogPost = () => {
         name: authorName,
         surname: authorSurname,
         avatar,
+        email,
       },
       readTime: {
         value: "2",
@@ -100,7 +102,8 @@ const NewBlogPost = () => {
               onChange={e => setAuthorSurname(e.target.value)}
             />
           </Form.Group>
-
+        </div>
+        <div className="author-info-div-1">
           <Form.Group controlId="blog-form" className="mt-3 author-form-group">
             <Form.Label>Author Avatar</Form.Label>
             <Form.Control
@@ -108,6 +111,15 @@ const NewBlogPost = () => {
               placeholder="Image link"
               value={avatar}
               onChange={e => setAvatar(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="blog-form" className="mt-3 author-form-group">
+            <Form.Label>Author Email</Form.Label>
+            <Form.Control
+              size="lg"
+              placeholder="Email Address"
+              value={email}
+              onChange={e => setEmail(e.target.value)}
             />
           </Form.Group>
         </div>
